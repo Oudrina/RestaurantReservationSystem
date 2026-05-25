@@ -1,0 +1,42 @@
+services:
+  mysql:
+    image: mysql
+    container_name: mysql_database
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "3307:3306"
+    restart: always
+    networks:
+      app-network:
+
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+  app:
+    build: .
+    container_name: reservation_app
+    restart: always
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+    depends_on:
+      - mysql
+    networks:
+      app-network:
+
+
+volumes:
+  mysql_data:
+networks:
+  app-network:
+    driver: bridge
+
+
+

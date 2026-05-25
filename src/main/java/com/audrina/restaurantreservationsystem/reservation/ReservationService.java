@@ -46,7 +46,7 @@ public class ReservationService {
                     ("Party Size Exceeded for Table Reservation");
         }
 
-        // todo6: calculate start and endTime
+        // todo 6: calculate start and endTime
         LocalDateTime startTime = reservationRequest.getReservationTime();
         LocalDateTime endTime = startTime.plusMinutes(reservationRequest.getDuration());
 
@@ -73,6 +73,27 @@ public class ReservationService {
       return   reservationRepository.save(reservation);
 
 
+    }
+
+
+    public Reservation viewReservation(Long customerId) {
+        return reservationRepository.findByCustomerId(customerId);
+    }
+
+    public List<Reservation> findAll() {
+        return  reservationRepository.findAll();
+    }
+
+    public void cancelReservation(Long customerId) {
+        Customer customer = customerRepository.findById(customerId).orElseThrow(
+                ()-> new RuntimeException("Customer Not Found with Id: " + customerId)
+        );
+        Reservation savedReservation = reservationRepository.findByCustomerId(customerId);
+
+        if (!customer.getReservations().isEmpty()) {
+            savedReservation.setStatus(ReservationStatus.CANCELLED);
+            reservationRepository.save(savedReservation);
+        }
     }
 }
 ;

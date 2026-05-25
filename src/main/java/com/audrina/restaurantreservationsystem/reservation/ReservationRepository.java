@@ -17,4 +17,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             AND r.endTime > :startTime
             """)
     List<Reservation> findOverlappingReservations(Long tableId, LocalDateTime startTime, LocalDateTime endTime);
+
+    Reservation findByCustomerId(Long customerId);
 }

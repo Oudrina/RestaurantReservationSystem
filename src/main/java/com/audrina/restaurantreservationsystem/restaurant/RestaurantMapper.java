@@ -16,12 +16,12 @@ public class RestaurantMapper {
                 .workingHours(restaurant.getWorkingHours().stream().map(
                         workingHours ->
                                 WorkingHoursDTO.builder()
-                                .dayOfWeek(workingHours.getDayOfWeek())
-                                .openingTime(workingHours.getOpeningTime())
-                                .closingTime(workingHours.getClosingTime())
-                                .status(String.valueOf(workingHours.getStatus()))
+                                        .dayOfWeek(workingHours.getDayOfWeek())
+                                        .openingTime(workingHours.getOpeningTime())
+                                        .closingTime(workingHours.getClosingTime())
+                                        .status(String.valueOf(workingHours.getStatus()))
 
-                                .build()
+                                        .build()
 
                 ).toList())
                 .build();
@@ -36,7 +36,7 @@ public class RestaurantMapper {
 
         List<WorkingHours> workingHours = restaurantRequest.getWorkingHours().stream().map(
                 workingHoursDTO -> {
-                    WorkingHours work =  mapToWorkingHours(workingHoursDTO);
+                    WorkingHours work = mapToWorkingHours(workingHoursDTO);
                     work.setRestaurant(restaurant);
                     return work;
                 }

@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +14,10 @@ import java.util.List;
 @Data
 @Builder
 public class RestaurantResponse {
-    private  Long id;
+    private Long id;
     private String name;
     private String location;
-    private  String phone;
+    private String phone;
     private LocalDate establishedDate;
     private List<WorkingHoursDTO> workingHours = new ArrayList<>();
 

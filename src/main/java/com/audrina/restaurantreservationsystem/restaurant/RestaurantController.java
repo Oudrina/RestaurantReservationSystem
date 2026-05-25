@@ -1,6 +1,5 @@
 package com.audrina.restaurantreservationsystem.restaurant;
 
-import com.audrina.restaurantreservationsystem.tableManagement.TableResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +23,7 @@ public class RestaurantController {
     }
 
     @PostMapping
-        public ResponseEntity<String> createRestaurant(@Valid @RequestBody RestaurantRequest restaurantRequest) {
+    public ResponseEntity<String> createRestaurant(@Valid @RequestBody RestaurantRequest restaurantRequest) {
         log.info("RESTAURANT request to save restaurant : {}", restaurantRequest);
 
         Restaurant createdRestaurant = restaurantService.createRestaurant(restaurantRequest);
@@ -40,9 +39,8 @@ public class RestaurantController {
         log.info("RESTAURANT request to get restaurant : {}", id);
         RestaurantResponse getRestaurant = restaurantService.getRestaurantById(id);
 
-       return  new ResponseEntity<>(getRestaurant, HttpStatus.OK);
+        return new ResponseEntity<>(getRestaurant, HttpStatus.OK);
     }
-
 
 
 }

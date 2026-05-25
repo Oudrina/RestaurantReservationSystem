@@ -2,18 +2,37 @@ package com.audrina.restaurantreservationsystem.reservation;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/reservation")
 public class ReservationController {
-    private  final ReservationService reservationService;
-    public Reservation createReservation(@RequestBody @Valid ReservationRequest reservationRequest){
-       Reservation reservation =   reservationService.createReservation(reservationRequest);
-    return  reservation;
+
+    private final ReservationService reservationService;
+    @GetMapping
+    public List<Reservation> findAllReservations() {
+        return reservationService.findAll();
     }
+
+    @PostMapping
+    public Reservation createReservation(@RequestBody @Valid ReservationRequest reservationRequest) {
+        return reservationService.createReservation(reservationRequest);
+    }
+
+    @GetMapping("{CustomerId}")
+    public ResponseEntity<Reservation> viewReservation(@RequestHeader(name = "X-USER-ID") Long CustomerId) {
+        return ResponseEntity.ok(reservationService.viewReservation(CustomerId));
+    }
+
+    @DeleteMapping("{CustomerId}")
+    public String cancelReservation(@RequestHeader(name = "X-USER-ID") Long CustomerId) {
+        reservationService.cancelReservation(CustomerId);
+        return "Reservation has been cancelled";
+    }
+
 }

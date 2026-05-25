@@ -35,6 +35,7 @@ public class TableManagement {
      private LocalDateTime createdAt;
     @UpdateTimestamp
      private LocalDateTime updatedAt;
+    
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "reservationId")
     List<Reservation> reservations;

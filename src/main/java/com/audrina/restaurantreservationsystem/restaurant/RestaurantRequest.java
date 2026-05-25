@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @Data
@@ -16,7 +15,7 @@ import java.util.List;
 public class RestaurantRequest {
     private String name;
     private String location;
-    private  String phone;
-   private List<WorkingHoursDTO> workingHours;
+    private String phone;
+    private List<WorkingHoursDTO> workingHours;
     private LocalDate establishedDate;
 }
